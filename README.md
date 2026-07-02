@@ -157,16 +157,3 @@ main.py                  CLI    streamlit_app.py  optional UI
 persona.yaml             editable report tone (Agility requirement)
 docs/ARCHITECTURE.md     HLD + detailed technical explanation
 ```
-
----
-
-## Notes
-
-- **Gemini is called over REST, not the gRPC SDK**, on purpose: gRPC name
-  resolution failed in the development network. REST works wherever HTTPS does
-  and gives us explicit retry/backoff control. See `src/llm.py`.
-- **Costs:** queries are capped (`MAX_BYTES_BILLED`, default 2 GB) and use the
-  BigQuery cache; the demo Trios scan a few MB each. LLM calls use
-  `gemini-3.5-flash` by default (configurable via `GEMINI_MODEL`).
-- **ChromaDB telemetry** prints a harmless upstream warning; it is silenced via
-  `ANONYMIZED_TELEMETRY=false` set in `src/config.py`.
