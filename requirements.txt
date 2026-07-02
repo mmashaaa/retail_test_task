@@ -1,0 +1,15 @@
+# Pinned with upper bounds to the versions this was built/tested against, so a
+# fresh install on another machine reproduces the same behavior. (A loose
+# chromadb pin pulled 1.5.x, whose embedding-function interface differs from the
+# tested 0.6.x — caught by the clean-install check.)
+langgraph>=0.2.60,<0.3
+langchain-core>=0.3,<0.4
+google-cloud-bigquery>=3.27,<4
+chromadb>=0.6.3,<0.7
+langfuse>=2.50,<3
+python-dotenv>=1.0.1,<2
+rich>=13.9,<15
+pyyaml>=6.0,<7
+requests>=2.31,<3
+streamlit>=1.40,<2     # optional: visual demo UI (streamlit_app.py)
+pytest>=8,<9           # dev: run the test suite (pytest -q)
