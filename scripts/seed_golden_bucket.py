@@ -1,6 +1,13 @@
 import json
 import os
 import time
+import logging
+
+# Silence ChromaDB's broken posthog telemetry (upstream bug) — must be set
+# before importing chromadb.
+os.environ["ANONYMIZED_TELEMETRY"] = "false"
+logging.getLogger("chromadb.telemetry").setLevel(logging.CRITICAL)
+
 import requests
 import chromadb
 from dotenv import load_dotenv

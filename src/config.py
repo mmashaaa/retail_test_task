@@ -1,11 +1,16 @@
 """Central configuration. Loads .env and exposes typed settings."""
 import os
+import logging
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
 # Silence ChromaDB's broken posthog telemetry (upstream bug, harmless).
-os.environ.setdefault("ANONYMIZED_TELEMETRY", "false")
+# The env var disables it; the logger line hushes the "capture() takes 1
+# positional argument but 3 were given" error some chromadb versions still
+# emit even when telemetry is off. Must run before `import chromadb`.
+os.environ["ANONYMIZED_TELEMETRY"] = "false"
+logging.getLogger("chromadb.telemetry").setLevel(logging.CRITICAL)
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")
